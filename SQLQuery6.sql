@@ -1,8 +1,10 @@
 --Sales Analysis
---1.	Total Sales per Customer:
---2.  Top 5 Products by Sales Volume
---3.	Monthly Sales Trend:
---4.	Sales by Store:
+     -- Total Sales per Customer
+     -- Top 5 Products by Sales Volume
+     --  Monthly Sales Trend
+     -- Sales by Store
+
+--1. Total Sales per Customer
 
 SELECT c.customer_id, c.first_name, c.last_name, SUM(oi.list_price* oi.quantity) as Totel_Sales
 from customers c
@@ -14,7 +16,7 @@ o.order_id = oi.order_id
 GROUP BY c.customer_id, c.first_name, c.last_name
 ORDER BY Totel_Sales desc
 
---2.  Top 5 Products by Sales Volume
+--2.  Top 5 Products by Sales Volume:
 
 SELECT TOP 5 p.product_name, SUM(oi.quantity) AS Total_Quantity
 FROM products p
@@ -34,6 +36,7 @@ GROUP BY FORMAT (o.order_date, 'yyyy-MM')
 ORDER BY Total_Sales desc
 
 --4.Sales by Store:
+   
 SELECT s.store_name, ROUND(SUM(oi.quantity * oi.list_price),2) AS Total_Sales
 FROM stores s
 JOIN orders o ON
@@ -44,7 +47,9 @@ GROUP BY s.store_name
 ORDER BY Total_Sales
 
 --Customer Analysis
-
+    -- Top 5 Customers by Number of Orders
+    -- Customer Purchase Frequency
+   
 --1.	Top 5 Customers by Number of Orders:
 
 SELECT top 5 c.first_name, c.last_name, count(o.order_id) AS Number_Of_Orders
@@ -55,6 +60,7 @@ GROUP BY c.first_name, c.last_name
 ORDER BY Number_Of_Orders DESC
 
 --2.	Customer Purchase Frequency:
+   
 SELECT c.customer_id, c.first_name, c.last_name, COUNT(o.order_id) AS number_of_orders
 FROM customers c
 JOIN orders o ON c.customer_id = o.customer_id
@@ -62,8 +68,8 @@ GROUP BY c.customer_id, c.first_name, c.last_name
 ORDER BY number_of_orders DESC;
 
 --Product and Inventory Analysis
---1.	Stock Level by Store:
---2.	Products Below Minimum Stock Level:
+   --	Stock Level by Store:
+   --	Products Below Minimum Stock Level:
 
 --1.	Stock Level by Store:
 
@@ -87,8 +93,8 @@ ORDER BY Total_quantity
 
 
 --Staff and Store Performance
-   --Sales Performance by Staff:
-   --Top Performing Stores:
+    --Sales Performance by Staff:
+    --Top Performing Stores:
 
 --1. Sales Performance by Staff:
 
@@ -113,10 +119,11 @@ GROUP BY s.store_name
 ORDER BY Total_Store_Sales  DESC 
 
 --Miscellaneous
-     --	List of Orders with Product Details:
+     --List of Orders with Product Details:
      -- Orders Not Shipped on Time:
 
 --1.List of Orders with Product Details
+   
 SELECT o.order_id, o.order_date, c.first_name,c.last_name, p.product_name, g.category_name
 FROM orders o
 JOIN customers c ON
