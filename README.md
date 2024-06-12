@@ -1,1 +1,1 @@
-# SQL_BikeStore_Project
+# Bike Store Relational Database | SQL
